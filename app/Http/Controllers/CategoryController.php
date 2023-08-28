@@ -19,7 +19,7 @@ class CategoryController extends Controller
     //    $Categories = Category::all();
     //     return view('backend.category.index',['categories'=>$Categories]);
 
-    //$categories = Category::all();
+    $categories = Category::all();
     return view('backend.category.index',compact('categories'));
     }
 
@@ -54,7 +54,15 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        //option-1
+        // $data['category']=$category;
+        // return view('backend.category.show',$data);
+
+        //option-2
+        //return view('backend.category.show',['category=>$category']);
+
+        //option-3
+        return view('backend.category.show',compact('category'));
     }
 
     /**
