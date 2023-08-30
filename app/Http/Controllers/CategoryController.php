@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryFormRequest;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -36,10 +39,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        
+      // $request->validate();
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
+        ],[
+            'name.required'=>"Name Must be Filled Up.",
+            'description.required'=>"Description Field Must be Filled Up."
         ]);
         
         
@@ -52,8 +58,17 @@ class CategoryController extends Controller
             'name'=> $request->name,
             'description'=> $request->description,
         ]);
-
+        // option-1
+        $request->session()->flash('success', 'Category Created Successful!');
         return redirect()->route('categories.index');
+        // option-2
+         //session()->flash('success', 'Category Created Successful!');
+        // option-3
+       // Session::flash('success', 'Category Created Successful!');
+       // return redirect()->route('categories.index');
+
+         // option-4
+         //return redirect()->route('categories.index')->with('success', 'Category Created Successful!');
     }
 
     /**
@@ -93,6 +108,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+       // $request->validate();
+
+   
         //option -1    
         $data['name'] = $request->name;
         $data['description'] = $request->description;
