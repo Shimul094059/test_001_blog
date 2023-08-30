@@ -23,6 +23,12 @@
                     <td>{{ $category->description }}</td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{ route('categories.show', $category->id) }}">Show Details</a>
+                        <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">edit</a>
+                        <form class="d-inline-block" action="{{ route('categories.destroy',$category->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
